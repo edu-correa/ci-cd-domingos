@@ -31,9 +31,15 @@ jobs:
         run: | 
           python -m pip install --upgrade pip 
           pip install pandas - name: Transformar dados (Trusted/Client) 
+      
+      - name: Transformar dados (Trusted/Client)
         run: | 
           python scripts/transform.py ./data/ ./output/ - name: Upload TRUSTED 
+       
+      - name: Upload TRUSTED 
         run: | 
           aws s3 cp ./output/ s3://${{ secrets.S3_BUCKET_NAME }}/trusted/ \ --recursive --exclude "*" --include "trusted_*.csv" - name: Upload CLIENT 
+      
+      - name: Upload CLIENT 
         run: | 
           aws s3 cp ./output/ s3://${{ secrets.S3_BUCKET_NAME }}/client/ \ --recursive --exclude "*" --include "client_*.csv" 
